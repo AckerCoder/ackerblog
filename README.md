@@ -1,78 +1,140 @@
-This app is a cloned version of [Contentful's blog](https://contentful.com/blog).
+# ackerblog
 
-The project is primarily an exercise to onboard new developers in the Globants's account for Intercom.
+> Another simple blog implementation :v
 
-## Goals
+![TypeScript](https://img.shields.io/badge/TypeScript-4.5-3178C6?logo=typescript&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-12-000000?logo=next.js&logoColor=white)
+![React](https://img.shields.io/badge/React-17-61DAFB?logo=react&logoColor=black)
+![Contentful](https://img.shields.io/badge/Contentful-CMS-2478CC?logo=contentful&logoColor=white)
 
-- Get familiarity with React, TypeScript, NextJS & Contentful.
-- Adopt the component design skills used in our applications (following the [Thinking in React](https://reactjs.org/docs/thinking-in-react.html) recommendations).
-- Adopt the workflow used to develop our applications.
-- Identify areas where you need to improve upon or catch up with other team members.
+A simple blog built with **Next.js**, **TypeScript**, and **React**, using [**Contentful**](https://www.contentful.com/) as a headless CMS for content. The project is configured for one-click deployment to **Netlify**.
 
-## Prerequisites
+> **Project status:** early-stage scaffold. The Contentful client is wired up and ready to use, while the homepage currently renders the default Next.js starter page. See [Roadmap](#roadmap) for what's next.
 
-1. Generate a new GitHub account using your Globant's email.
-2. Clone the base repository found here into your new GitHub account. Alternatively, use the [one-click Netlify button](#deploy-to-netlify) below which also clones this project for you.
-3. Add your leader and teammates as collaborators for your new GitHub repository.
+## Tech Stack
 
-Go to your repository Settings > Manage access and configure like so:
+| Layer      | Technology                                             |
+| ---------- | ------------------------------------------------------ |
+| Framework  | [Next.js](https://nextjs.org/) 12                      |
+| Language   | [TypeScript](https://www.typescriptlang.org/) 4.5      |
+| UI         | [React](https://react.dev/) 17 + React DOM             |
+| Content    | [Contentful](https://www.contentful.com/) SDK (`contentful` v9) |
+| Styling    | CSS Modules + global CSS                               |
+| Deployment | [Netlify](https://www.netlify.com/) (`@netlify/plugin-nextjs`) |
+| Tooling    | ESLint (`eslint-config-next`) + Prettier               |
 
-<img src="./public/screenshots/add-collaborators.png" alt="Example: Add teammates as collaborators." />
+## Features
 
-4. Configure your repository such that new PRs require at least an approval before merging.
-
-Go to your repository Settings > Branches and configure like so:
-
-<img src="./public/screenshots/protect-branch.png" alt="Example: Configure branch protection." />
-
-5. Configure your Personal Access Token for the Github Actions. Go to the [Tokens page](https://github.com/settings/tokens) and click on "Generate new Token". Enable all "repo" & "workflow" scopes.
-   Copy the code. Create a new secret in your repository and paste the token as seen in the following screenshot:
-
-<img src="./public/screenshots/create-repo-secret.png" alt="Example: Add a secret in your repository." />
-
-6. Generate a new Contentful account using your Globant's email. You should have an empty space once you're done.
+- **Next.js + TypeScript** application scaffold with strict React mode enabled.
+- **Contentful integration** — a preconfigured Contentful client (`src/services/contentful.ts`) that authenticates via environment variables, ready to fetch blog content.
+- **API routes** — Next.js API routes under `pages/api` (includes a sample `hello` endpoint).
+- **CSS Modules** for component-level styling plus a global stylesheet.
+- **Netlify-ready** — includes a `netlify.toml` with the official Next.js runtime plugin for zero-config deployment.
+- **CI linting** — a GitHub Actions workflow runs ESLint and Prettier on every push and pull request to `main`.
 
 ## Getting Started
 
-> You should use this guide on top of the standard create-next-app [getting started guide](https://nextjs.org/docs/getting-started)
+### Prerequisites
 
-1. After cloning this project, install all dependencies using _Yarn_ with this command `yarn install`.
-2. Create a new file called `.env` and copy&paste all the contents found in the file `.env.example`.
-3. Enter your Contentful space and copy the secrets X and Y to the `.env` file.
-4. Start the app with the command `yarn dev` and then open [http://localhost:3000](http://localhost:3000) with your browser. You should see the standard _create-next-app_ homepage.
-5. If you don't see the homepage or get an error, please check the Prerequisites section and confirm there's no console errors in your terminal.
+- [Node.js](https://nodejs.org/) (v16+ recommended)
+- [Yarn](https://yarnpkg.com/)
+- A [Contentful](https://www.contentful.com/) account and space (for content)
 
-## Deploy to Netlify
+### Installation
 
-**Option one:** One-click deploy
+1. Clone the repository:
 
-:exclamation: Please note this action will clone this repository into your own Github account.
+   ```bash
+   git clone https://github.com/AckerCoder/ackerblog.git
+   cd ackerblog
+   ```
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/g-azambrano/blog-onboarding-exercise&utm_source=github)
+2. Install dependencies:
 
-**Option two:** Manual connection
+   ```bash
+   yarn install
+   ```
 
-Connect to [Netlify](https://netlify.com/) by logging in using GitHub auth and then select your repository. The `netlify.toml` file should be ready to be picked up by the Netlify dashboard. Modify it otherwise.
+3. Create a `.env` file at the project root and copy in the contents of `.env.example`:
 
-## Workflow
+   ```bash
+   cp .env.example .env
+   ```
 
-- As you start your journey through this exercise, you should be handed a list of user stories to breakdown the work needed for this application. Typically, it comes as a PDF export.
-- Read carefully the instructions on all the stories before starting your work. The full list of tasks tells you the whole story of the expected result once you complete every single item.
-- Once you start working on a user story, create a new branch for such task. Feel free to use any convention you are comfortable with, but please relate your work to the number of JIRA ticket. E.g. `feat/glb-123-my-feature`
-- Once you are ready to submit your work, submit a PR to your own repository. Every user story or task should represent at least one pull request in your repo. Please fill in the details following the Pull Request template.
-- Every PR should trigger an automated lint check as well as a new Netlify preview deployment. Share both the PR and the Preview link with the team to get feedback.
-- Once the PR is approved, merge your work before continuing with other tasks.
+4. Fill in your Contentful credentials in `.env`:
 
-## How to create components
+   ```env
+   CONTENTFUL_SPACE_ID=your_space_id
+   CONTENTFUL_ACCESS_TOKEN=your_access_token
+   ```
 
-- Create new components in the `src/components` folder.
-- For each new component, add a new directory. E.g. `src/component/MyComponent`.
-- Inside a component directory, create an `index.ts` file. Such file should contain an exported interface named `IProps`. This interface represents the props for your component.
+### Running the app
 
-## Styling
+Start the development server:
 
-To write styles, you can use either [component-level CSS](https://nextjs.org/docs/basic-features/built-in-css-support#adding-component-level-css) or [CSS-in-JS](https://nextjs.org/docs/basic-features/built-in-css-support#css-in-js) with the latter being the preferred approach for the main Intercom application.
+```bash
+yarn dev
+```
 
-## Got any questions?
+Then open [http://localhost:3000](http://localhost:3000) in your browser.
 
-Please contact the Intercom team through slack in #ic-core-team. The team is used to have technical conversations through code and pull requests. We encourage you to ask through code examples or submit a new Pull Request to your repository and share it with the team for feedback!
+## Available Scripts
+
+| Command      | Description                                        |
+| ------------ | -------------------------------------------------- |
+| `yarn dev`   | Start the development server on `localhost:3000`.  |
+| `yarn build` | Create an optimized production build.              |
+| `yarn start` | Run the production server (requires a build).      |
+| `yarn lint`  | Run ESLint via `next lint`.                        |
+
+## Fetching content from Contentful
+
+Content is accessed through the shared Contentful client:
+
+```ts
+import { client } from "../src/services/contentful";
+
+// Example: fetch entries from your space
+const entries = await client.getEntries();
+```
+
+The client reads its credentials from the `CONTENTFUL_SPACE_ID` and `CONTENTFUL_ACCESS_TOKEN` environment variables, so make sure your `.env` file is populated before making requests.
+
+## Project Structure
+
+```
+ackerblog/
+├── pages/
+│   ├── _app.tsx              # Custom App component (global CSS)
+│   ├── index.tsx             # Home page
+│   └── api/
+│       └── hello.ts          # Sample API route
+├── src/
+│   └── services/
+│       └── contentful.ts     # Configured Contentful client
+├── styles/
+│   ├── globals.css           # Global styles
+│   └── Home.module.css       # Home page CSS module
+├── public/                   # Static assets
+├── .github/
+│   └── workflows/main.yml    # ESLint + Prettier CI
+├── .env.example              # Environment variable template
+├── netlify.toml              # Netlify deployment config
+└── next.config.js            # Next.js configuration
+```
+
+## Deployment
+
+The project is preconfigured for **Netlify**. The included `netlify.toml` registers the official `@netlify/plugin-nextjs` runtime, so connecting the repository in the Netlify dashboard is enough to build and deploy it.
+
+Remember to set the `CONTENTFUL_SPACE_ID` and `CONTENTFUL_ACCESS_TOKEN` environment variables in your Netlify site settings.
+
+## Roadmap
+
+- Render a blog post list on the homepage from Contentful entries.
+- Add individual post detail pages.
+- Introduce a content model for posts (title, body, author, date).
+
+## License
+
+No license file is currently included in this repository.
